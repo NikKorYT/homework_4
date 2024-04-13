@@ -16,8 +16,12 @@ class Name(Field):
 
 
 class Phone(Field):
-    pass
-
+    def __init__(self, value):
+        super().__init__(value)
+        
+        # check if the phone number contains 10 digits
+        if not value.isdigit() or len(value) != 10:
+            raise ValueError("Phone number must contain 10 digits.")
 
 class Record:
     def __init__(self, name):
@@ -25,7 +29,7 @@ class Record:
         self.phones = []
 
     def add_phone(self, phone):
-        self.phones.append(phone)
+        self.phones.append(Phone(phone))
 
     def remove_phone(self, phone):
         self.phones.remove(phone)
@@ -172,7 +176,7 @@ if __name__ == "__main__":
 
     # Створення запису для John
     john_record = Record("John")
-    john_record.add_phone("1234567890")
+    john_record.add_phone("123456789")
     john_record.add_phone("5555555555")
 
     # Додавання запису John до адресної книги
