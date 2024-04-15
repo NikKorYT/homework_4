@@ -16,7 +16,7 @@ class Name(Field):
 
 
 class Phone(Field):
-    def __init__(self, value):
+    def __init__(self, value: str):
         super().__init__(value)
         
         # check if the phone number contains 10 digits
@@ -29,7 +29,8 @@ class Record:
         self.phones = []
 
     def add_phone(self, phone):
-        self.phones.append(Phone(phone))
+        Phone(phone)
+        self.phones.append(phone)
 
     def remove_phone(self, phone):
         self.phones.remove(phone)
@@ -41,16 +42,16 @@ class Record:
         #return phone
         return self.phones[self.phones.index(phone)]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Contact name: {self.name}, phones: {'; '.join(p for p in self.phones)}"
 
 
 class AddressBook(UserDict):
     
-    def add_record(self, record):
+    def add_record(self, record: Record):
         self.data[record.name] = record
         
-    def find(self, name):
+    def find(self, name) -> Record:
         return self.data[name]
     
     def delete(self, name):
@@ -176,7 +177,7 @@ if __name__ == "__main__":
 
     # Створення запису для John
     john_record = Record("John")
-    john_record.add_phone("123456789")
+    john_record.add_phone("1234567890")
     john_record.add_phone("5555555555")
 
     # Додавання запису John до адресної книги
@@ -193,6 +194,7 @@ if __name__ == "__main__":
 
     # Знаходження та редагування телефону для John
     john = book.find("John")
+    print(john)  # Виведення: Contact name: John, phones: 1234567890; 5555555555
     john.edit_phone("1234567890", "1112223333")
 
     print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
