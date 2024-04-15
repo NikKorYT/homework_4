@@ -18,10 +18,11 @@ class Name(Field):
 class Phone(Field):
     def __init__(self, value: str):
         super().__init__(value)
-        
+
         # check if the phone number contains 10 digits
         if not value.isdigit() or len(value) != 10:
             raise ValueError("Phone number must contain 10 digits.")
+
 
 class Record:
     def __init__(self, name):
@@ -34,12 +35,12 @@ class Record:
 
     def remove_phone(self, phone):
         self.phones.remove(phone)
-    
+
     def edit_phone(self, phone, new_phone):
         self.phones[self.phones.index(phone)] = new_phone
-    
+
     def find_phone(self, phone):
-        #return phone
+        # return phone
         return self.phones[self.phones.index(phone)]
 
     def __str__(self) -> str:
@@ -47,13 +48,13 @@ class Record:
 
 
 class AddressBook(UserDict):
-    
+
     def add_record(self, record: Record):
         self.data[record.name] = record
-        
+
     def find(self, name) -> Record:
         return self.data[name]
-    
+
     def delete(self, name):
         del self.data[name]
 
@@ -165,10 +166,6 @@ def print_all_contacts(contacts) -> str:
     else:
         return "No contacts found."
 
-
-# decorator for handling input errors
-
-
 if __name__ == "__main__":
     #     main()
     # Створення нової адресної книги
@@ -194,7 +191,6 @@ if __name__ == "__main__":
 
     # Знаходження та редагування телефону для John
     john = book.find("John")
-    print(john)  # Виведення: Contact name: John, phones: 1234567890; 5555555555
     john.edit_phone("1234567890", "1112223333")
 
     print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
